@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 import pandas as pd
 import joblib
+import os  # Para obtener el puerto dinámico
 
 app = Flask(__name__)
 
@@ -46,5 +47,7 @@ def predict():
     return jsonify({'prediccion': resultado})
 
 if __name__ == '__main__':
-    app.run(debug=True)
-
+    # Obtener el puerto dinámico del entorno o usar 5000 por defecto
+    port = int(os.environ.get('PORT', 5000))
+    # Ejecutar la aplicación Flask en el host 0.0.0.0
+    app.run(host='0.0.0.0', port=port, debug=True)
